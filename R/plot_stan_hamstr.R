@@ -511,7 +511,7 @@ plot_memory_prior_posterior <- function(hamstr_fit){
                             shape2 = hamstr_fit$data$mem_beta))
 
   w <- rstan::extract(hamstr_fit$fit, "w")$w
-  ifelse(is.matrix(w), w <- apply(w, 1, median),  w <- as.vector(w))
+  ifelse(is.matrix(w), w <- w[,ncol(w)],  w <- as.vector(w))
 
   mem.post <- tibble::tibble(w = w,
                      R = as.vector(rstan::extract(hamstr_fit$fit, "R")$R))
